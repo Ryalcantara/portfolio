@@ -31,7 +31,7 @@ export default function About() {
     }}>
 
       {/* Ghost chapter number */}
-      <span style={{
+      <span className="ghost-num" style={{
         position: "absolute",
         fontFamily: "var(--font-dm-serif), serif",
         fontSize: "clamp(100px, 16vw, 220px)",
@@ -43,7 +43,7 @@ export default function About() {
       }}>02</span>
 
       {/* ── Left ── */}
-      <div style={{
+      <div className="about-left" style={{
         padding: "80px 60px 80px 64px",
         display: "flex", flexDirection: "column", justifyContent: "center",
         borderRight: "1px solid var(--border)",
@@ -129,7 +129,7 @@ export default function About() {
       </div>
 
       {/* ── Right ── */}
-      <div style={{
+      <div className="about-right" style={{
         padding: "80px 52px",
         display: "flex", flexDirection: "column", justifyContent: "center",
         ...anim("0.12s"),

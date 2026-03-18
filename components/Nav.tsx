@@ -68,7 +68,7 @@ export default function Nav() {
       </a>
 
       {/* Links */}
-      <ul style={{ display: "flex", gap: 36, listStyle: "none", margin: 0, padding: 0 }}>
+      <ul className="nav-links" style={{ display: "flex", gap: 36, listStyle: "none", margin: 0, padding: 0 }}>
         {links.map(l => (
           <li key={l.href}>
             <a
@@ -92,6 +92,7 @@ export default function Nav() {
       {/* CTA */}
       <a
         href="mailto:royalcantara02@gmail.com"
+        className="nav-cta"
         style={{
           display: "flex", alignItems: "center", gap: 6,
           fontSize: 12, color: "#fff", textDecoration: "none",

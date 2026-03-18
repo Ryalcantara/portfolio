@@ -161,3 +161,41 @@ body {
   to   { transform: translateX(-50%); }
 }
 
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  /* Nav */
+  .nav-links { display: none !important; }
+  .nav-cta   { display: none !important; }
+
+  /* Section dots */
+  .section-dots { display: none !important; }
+
+  /* Hero */
+  #hero { grid-template-columns: 1fr !important; }
+  .hero-right      { display: none !important; }
+  .hero-left       { padding: 96px 24px 80px !important; }
+  .hero-vert-label { display: none !important; }
+  .hero-stats      { left: 24px !important; bottom: 36px !important; gap: 24px !important; }
+
+  /* About */
+  #about       { grid-template-columns: 1fr !important; }
+  .about-left  { padding: 56px 24px 36px !important; border-right: none !important; border-bottom: 1px solid var(--border) !important; }
+  .about-right { padding: 36px 24px 56px !important; }
+  .ghost-num   { display: none !important; }
+
+  /* Experience */
+  #experience  { grid-template-columns: 1fr !important; }
+  .exp-left    { padding: 56px 24px 36px !important; border-right: none !important; border-bottom: 1px solid var(--border) !important; }
+  .exp-right   { padding: 36px 24px 56px !important; }
+
+  /* Works */
+  #works       { padding: 56px 24px !important; }
+  .works-row   { grid-template-columns: 36px 1fr 32px !important; gap: 0 12px !important; }
+  .works-tags  { display: none !important; }
+  .works-year  { display: none !important; }
+
+  /* CTA */
+  #cta         { padding: 56px 24px !important; }
+  .cta-email   { white-space: normal !important; font-size: clamp(28px, 10vw, 52px) !important; line-height: 1.05 !important; }
+}
+

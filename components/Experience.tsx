@@ -102,7 +102,7 @@ export default function Experience() {
     }}>
 
       {/* Ghost chapter number */}
-      <span style={{
+      <span className="ghost-num" style={{
         position: "absolute",
         fontFamily: "var(--font-dm-serif), serif",
         fontSize: "clamp(100px, 16vw, 220px)",
@@ -113,7 +113,7 @@ export default function Experience() {
         letterSpacing: "-0.05em",
       }}>03</span>
       {/* ── Left ── */}
-      <div style={{
+      <div className="exp-left" style={{
         padding: "80px 52px 80px 64px",
         display: "flex", flexDirection: "column", justifyContent: "center",
         borderRight: "1px solid var(--border)",
@@ -199,7 +199,7 @@ export default function Experience() {
       </div>
 
       {/* ── Right — timeline ── */}
-      <div style={{
+      <div className="exp-right" style={{
         padding: "80px 52px",
         display: "flex", flexDirection: "column", justifyContent: "center",
         overflowY: "auto",

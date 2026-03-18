@@ -75,6 +75,7 @@ export default function CTABanner() {
       {/* Email — oversized, left-anchored */}
       <a
         href="mailto:royalcantara02@gmail.com"
+        className="cta-email"
         style={{
           fontFamily: "var(--font-dm-serif), serif",
           fontSize: "clamp(28px, 5.5vw, 80px)",

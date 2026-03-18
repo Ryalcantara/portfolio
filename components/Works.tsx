@@ -192,6 +192,7 @@ export default function Works() {
             onKeyDown={e => e.key === "Enter" && setSelected(p)}
             onMouseEnter={() => setHoveredIdx(i)}
             onMouseLeave={() => setHoveredIdx(null)}
+            className="works-row"
             style={{
               display: "grid",
               gridTemplateColumns: "44px 1fr auto 88px 32px",
@@ -237,7 +238,7 @@ export default function Works() {
             </div>
 
             {/* Tags */}
-            <div style={{ display: "flex", gap: 5, flexWrap: "wrap", justifyContent: "flex-end" }}>
+            <div className="works-tags" style={{ display: "flex", gap: 5, flexWrap: "wrap", justifyContent: "flex-end" }}>
               {p.tags.map(t => (
                 <span key={t} style={{
                   fontSize: 8, letterSpacing: "0.1em", textTransform: "uppercase",
@@ -251,7 +252,7 @@ export default function Works() {
             </div>
 
             {/* Year + status */}
-            <div style={{ textAlign: "right" }}>
+            <div className="works-year" style={{ textAlign: "right" }}>
               <span style={{ fontSize: 10, color: "var(--muted)", letterSpacing: "0.06em", display: "block" }}>
                 {p.year}
               </span>

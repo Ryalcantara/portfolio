@@ -37,6 +37,7 @@ export default function SectionDots() {
 
   return (
     <div
+      className="section-dots"
       style={{
         position: "fixed", right: 28, top: "50%",
         transform: "translateY(-50%)",

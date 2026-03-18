@@ -69,7 +69,7 @@ export default function Hero() {
     }}>
 
       {/* ── Left ── */}
-      <div style={{
+      <div className="hero-left" style={{
         gridColumn: 1, gridRow: 1,
         display: "flex", flexDirection: "column", justifyContent: "center",
         padding: "120px 52px 80px 64px",
@@ -77,7 +77,7 @@ export default function Hero() {
       }}>
 
         {/* Vertical left-edge label */}
-        <div style={{
+        <div className="hero-vert-label" style={{
           position: "absolute",
           left: 0, top: 0, bottom: 0,
           writingMode: "vertical-rl",
@@ -171,7 +171,7 @@ export default function Hero() {
         </div>
 
         {/* Stats */}
-        <div style={{
+        <div className="hero-stats" style={{
           position: "absolute", bottom: 56, left: 64,
           display: "flex", gap: 36, alignItems: "center",
         }}>
@@ -200,7 +200,7 @@ export default function Hero() {
       </div>
 
       {/* ── Right — full-bleed portrait ── */}
-      <div style={{
+      <div className="hero-right" style={{
         gridColumn: 2, gridRow: 1,
         position: "relative",
         borderLeft: "1px solid var(--border)",
