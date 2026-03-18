@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
-import { Inter, DM_Serif_Display, Geist } from "next/font/google";
+import { Space_Grotesk, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
-
-const inter = Inter({
+// Body — clean geometric sans
+const spaceGrotesk = Space_Grotesk({
   variable: "--font-inter",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
 });
 
-const dmSerif = DM_Serif_Display({
+// Display — high-contrast editorial serif
+const playfair = Playfair_Display({
   variable: "--font-dm-serif",
   subsets: ["latin"],
-  weight: ["400"],
+  weight: ["400", "500", "700"],
   style: ["normal", "italic"],
 });
 
@@ -27,9 +26,9 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={cn("font-sans", geist.variable)}>
+    <html lang="en">
       <body
-        className={`${inter.variable} ${dmSerif.variable}`}
+        className={`${spaceGrotesk.variable} ${playfair.variable}`}
         style={{ fontFamily: "var(--font-inter), sans-serif" }}
       >
         {children}

@@ -1,13 +1,8 @@
 "use client";
 import { useEffect, useRef, ReactNode } from "react";
 
-const services: {
-  bg: string; color: string; hoverBorder: string;
-  title: string; desc: string; icon: ReactNode;
-}[] = [
+const services: { title: string; desc: string; icon: ReactNode }[] = [
   {
-    bg: "#1E3028", color: "var(--green)",
-    hoverBorder: "rgba(140,201,160,0.4)",
     title: "UI / UX Design",
     desc: "Clean, intuitive interfaces built around real user behaviour. From wireframes to polished high-fidelity prototypes.",
     icon: (
@@ -20,8 +15,6 @@ const services: {
     ),
   },
   {
-    bg: "#1A263C", color: "var(--blue)",
-    hoverBorder: "rgba(107,159,212,0.4)",
     title: "Brand Identity",
     desc: "Visual identity systems that communicate personality and build trust — logos, type, color, and motion.",
     icon: (
@@ -32,8 +25,6 @@ const services: {
     ),
   },
   {
-    bg: "#2C1E1C", color: "var(--coral)",
-    hoverBorder: "rgba(212,88,74,0.4)",
     title: "Web Development",
     desc: "Pixel-perfect front-end development that brings designs to life with smooth animations and clean code.",
     icon: (
@@ -74,13 +65,13 @@ export default function Services() {
     <section
       id="services"
       ref={ref}
-      style={{ padding: "80px 52px", borderTop: "1px solid var(--border)" }}
+      style={{ padding: "80px 52px", borderTop: "1px solid var(--border)", minHeight: "100vh" }}
     >
       <div className="section-tag">What I Offer</div>
       <h2 style={{
         fontFamily: "var(--font-dm-serif), serif",
         fontSize: "clamp(34px, 4vw, 52px)",
-        fontWeight: 400, letterSpacing: "-0.01em",
+        fontWeight: 400, letterSpacing: "-0.01em", color: "#fff",
       }}>
         Services
       </h2>
@@ -93,31 +84,33 @@ export default function Services() {
             style={{
               background: "var(--bg2)",
               border: "1px solid var(--border)",
-              borderRadius: 8,
+              borderRadius: 6,
               padding: 32,
+              position: "relative",
+              overflow: "hidden",
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.borderColor = s.hoverBorder;
-              e.currentTarget.style.boxShadow = "0 12px 32px rgba(0,0,0,0.25)";
+              e.currentTarget.style.borderColor = "rgba(255,255,255,0.22)";
+              e.currentTarget.style.boxShadow   = "0 12px 32px rgba(0,0,0,0.4)";
               const icon = e.currentTarget.querySelector<HTMLElement>(".svc-icon");
               if (icon) icon.style.transform = "translateY(-4px) scale(1.08)";
             }}
             onMouseLeave={e => {
               e.currentTarget.style.borderColor = "var(--border)";
-              e.currentTarget.style.boxShadow = "none";
+              e.currentTarget.style.boxShadow   = "none";
               const icon = e.currentTarget.querySelector<HTMLElement>(".svc-icon");
               if (icon) icon.style.transform = "translateY(0) scale(1)";
             }}
           >
-            {/* flat icon box */}
             <div
               className="svc-icon"
               style={{
-                width: 44, height: 44, borderRadius: 8,
-                background: s.bg, color: s.color,
+                width: 44, height: 44, borderRadius: 6,
+                background: "#1a1a1a",
+                color: "rgba(255,255,255,0.8)",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 marginBottom: 22,
-                border: `1px solid ${s.hoverBorder}`,
+                border: "1px solid rgba(255,255,255,0.1)",
                 transition: "transform 0.25s cubic-bezier(0.22,1,0.36,1)",
               }}
             >
@@ -125,7 +118,7 @@ export default function Services() {
             </div>
             <div style={{
               fontFamily: "var(--font-dm-serif), serif",
-              fontSize: 22, fontWeight: 400, marginBottom: 12,
+              fontSize: 22, fontWeight: 400, marginBottom: 12, color: "#fff",
             }}>
               {s.title}
             </div>

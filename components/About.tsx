@@ -1,207 +1,191 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-
-const chips = [
-  { label: "UI / UX",          color: "green" },
-  { label: "Branding",         color: "blue"  },
-  { label: "Motion",           color: "green" },
-  { label: "Development",      color: "coral" },
-  { label: "Product Strategy", color: "green" },
-  { label: "Illustration",     color: "blue"  },
-] as const;
-
-const chipColors: Record<string, { border: string; color: string }> = {
-  green: { border: "rgba(140,201,160,0.25)", color: "var(--green)" },
-  blue:  { border: "rgba(107,159,212,0.25)", color: "var(--blue)"  },
-  coral: { border: "rgba(212,88,74,0.25)",   color: "var(--coral)" },
-};
-
-const cardStats = [
-  { end: 200, suffix: "+", label: "Projects"  },
-  { end: 50,  suffix: "+", label: "Startups"  },
-  { end: 8,   suffix: "+", label: "Years Exp" },
-  { end: 30,  suffix: "+", label: "Awards"    },
-];
-
-function useCountUp(end: number, duration = 1400, active: boolean) {
-  const [val, setVal] = useState(0);
-  useEffect(() => {
-    if (!active) return;
-    let start = 0;
-    const step = end / (duration / 16);
-    const id = setInterval(() => {
-      start += step;
-      if (start >= end) { setVal(end); clearInterval(id); }
-      else setVal(Math.floor(start));
-    }, 16);
-    return () => clearInterval(id);
-  }, [active, end, duration]);
-  return val;
-}
-
-function StatCard({ stat, active }: { stat: typeof cardStats[number]; active: boolean }) {
-  const val = useCountUp(stat.end, 1400, active);
-  return (
-    <div style={{
-      background: "var(--bg)",
-      borderRadius: 6,
-      padding: 16,
-      border: "1px solid var(--border)",
-    }}>
-      <div style={{
-        fontFamily: "var(--font-dm-serif), serif",
-        fontSize: 26, color: "var(--green)",
-      }}>
-        {val}{stat.suffix}
-      </div>
-      <div style={{
-        fontSize: 11, color: "var(--muted)",
-        letterSpacing: "0.06em", textTransform: "uppercase",
-      }}>
-        {stat.label}
-      </div>
-    </div>
-  );
-}
+import Image from "next/image";
 
 export default function About() {
-  const ref     = useRef<HTMLElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [counting, setCounting] = useState(false);
+  const ref = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    // Slide in left / right
-    const slideObs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          const el = e.target as HTMLElement;
-          el.style.opacity = "1";
-          el.style.transform = "translateX(0)";
-        }
-      });
-    }, { threshold: 0.12 });
-
-    const left  = ref.current?.querySelector<HTMLElement>(".slide-left");
-    const right = ref.current?.querySelector<HTMLElement>(".slide-right");
-    if (left)  { left.style.opacity  = "0"; left.style.transform  = "translateX(-40px)"; left.style.transition  = "opacity 0.7s ease, transform 0.7s ease"; slideObs.observe(left); }
-    if (right) { right.style.opacity = "0"; right.style.transform = "translateX(40px)";  right.style.transition = "opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s"; slideObs.observe(right); }
-
-    // Count-up trigger
-    const countObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) setCounting(true); });
-    }, { threshold: 0.3 });
-    if (cardRef.current) countObs.observe(cardRef.current);
-
-    return () => { slideObs.disconnect(); countObs.disconnect(); };
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) setVisible(true); },
+      { threshold: 0.1 }
+    );
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
   }, []);
 
+  const anim = (delay: string): React.CSSProperties => ({
+    opacity:   visible ? 1 : 0,
+    transform: visible ? "translateY(0)" : "translateY(24px)",
+    transition: `opacity 0.7s ease ${delay}, transform 0.7s ease ${delay}`,
+  });
+
   return (
-    <section
-      id="about"
-      ref={ref}
-      style={{
-        padding: "110px 52px 80px",
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: 80,
-        alignItems: "center",
-        borderTop: "1px solid var(--border)",
-      }}
-    >
-      {/* Left */}
-      <div className="slide-left">
-        <div className="section-tag">About Me</div>
+    <section id="about" ref={ref} style={{
+      minHeight: "100vh",
+      display: "grid",
+      gridTemplateColumns: "3fr 2fr",
+      borderTop: "1px solid var(--border)",
+      position: "relative",
+    }}>
+
+      {/* Ghost chapter number */}
+      <span style={{
+        position: "absolute",
+        fontFamily: "var(--font-dm-serif), serif",
+        fontSize: "clamp(100px, 16vw, 220px)",
+        color: "rgba(255,255,255,0.018)",
+        lineHeight: 1,
+        top: 24, right: 40,
+        userSelect: "none", pointerEvents: "none",
+        letterSpacing: "-0.05em",
+      }}>02</span>
+
+      {/* ── Left ── */}
+      <div style={{
+        padding: "80px 60px 80px 64px",
+        display: "flex", flexDirection: "column", justifyContent: "center",
+        borderRight: "1px solid var(--border)",
+      }}>
+        <div className="section-tag" style={anim("0s")}>About Me</div>
+
         <h2 style={{
           fontFamily: "var(--font-dm-serif), serif",
-          fontSize: "clamp(34px, 4vw, 52px)",
-          fontWeight: 400, lineHeight: 1.1,
-          marginBottom: 24, letterSpacing: "-0.01em",
+          fontSize: "clamp(32px, 3.5vw, 48px)",
+          fontWeight: 400, lineHeight: 1.15,
+          letterSpacing: "-0.015em", color: "#fff",
+          marginBottom: 24,
+          ...anim("0.08s"),
         }}>
-          Crafting digital<br />
-          <em style={{ fontStyle: "italic", color: "var(--blue)" }}>experiences</em>{" "}
-          that resonate.
+          Grew up in Batanes,{" "}
+          <em style={{ fontStyle: "italic", color: "rgba(255,255,255,0.3)" }}>
+            studied IT, started building.
+          </em>
         </h2>
-        <p style={{ color: "var(--muted)", fontSize: 15, lineHeight: 1.8, marginBottom: 16 }}>
-          I&apos;m a{" "}
-          <strong style={{ color: "var(--text)", fontWeight: 500 }}>
-            product designer &amp; creative developer
-          </strong>{" "}
-          with a passion for blending aesthetics with function. Every pixel, every interaction is
-          intentional — built to leave an impression.
+
+        <p style={{
+          fontSize: 14, color: "var(--muted2)", lineHeight: 1.85,
+          marginBottom: 16, maxWidth: 460,
+          ...anim("0.16s"),
+        }}>
+          I&apos;m from{" "}
+          <span style={{ color: "rgba(255,255,255,0.75)", fontWeight: 500 }}>Batanes</span>
+          {" "}— the northernmost province of the Philippines.
+          I graduated with an IT degree and started working at a local government agency here, building internal tools.
         </p>
-        <p style={{ color: "var(--muted)", fontSize: 15, lineHeight: 1.8, marginBottom: 32 }}>
-          With years of experience across{" "}
-          <strong style={{ color: "var(--text)", fontWeight: 500 }}>
-            branding, UI/UX, and front-end development
-          </strong>
-          , I help startups and established brands tell their story through design.
+
+        <p style={{
+          fontSize: 14, color: "var(--muted2)", lineHeight: 1.85,
+          marginBottom: 40, maxWidth: 460,
+          ...anim("0.22s"),
+        }}>
+          Over 2+ years I developed a{" "}
+          <span style={{ color: "rgba(255,255,255,0.7)", fontWeight: 500 }}>time management system</span>,
+          a{" "}
+          <span style={{ color: "rgba(255,255,255,0.7)", fontWeight: 500 }}>3D visitor kiosk</span>,
+          and I&apos;m currently working on an{" "}
+          <span style={{ color: "rgba(255,255,255,0.7)", fontWeight: 500 }}>Ivatan translator</span>
+          {" "}— a hobby project for a language spoken only in Batanes.
         </p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-          {chips.map((c, i) => (
-            <span
-              key={c.label}
-              style={{
-                fontSize: 11, letterSpacing: "0.08em", textTransform: "uppercase",
-                padding: "6px 14px", borderRadius: 2,
-                border: `1px solid ${chipColors[c.color].border}`,
-                color: chipColors[c.color].color,
-                transition: "transform 0.2s, border-color 0.2s",
-                display: "inline-block",
-                animation: `fadeUp 0.5s ease ${0.05 * i + 0.3}s both`,
-              }}
-              onMouseEnter={e => (e.currentTarget.style.transform = "translateY(-2px)")}
-              onMouseLeave={e => (e.currentTarget.style.transform = "translateY(0)")}
-            >
-              {c.label}
+
+        {/* Stack — plain text */}
+        <div style={{ ...anim("0.28s") }}>
+          <div style={{
+            fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase",
+            color: "var(--muted)", marginBottom: 10,
+          }}>
+            Current stack
+          </div>
+          <p style={{
+            fontSize: 12, color: "rgba(255,255,255,0.42)",
+            lineHeight: 2.2, letterSpacing: "0.03em",
+          }}>
+            React · Next.js · Node.js · TypeScript · Three.js · MySQL · REST API · Laravel
+          </p>
+        </div>
+
+        <div style={{ marginTop: 22, ...anim("0.34s") }}>
+          <div style={{
+            fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase",
+            color: "var(--muted)", marginBottom: 10,
+            display: "flex", alignItems: "center", gap: 8,
+          }}>
+            Expanding into
+            <span style={{
+              fontSize: 7, letterSpacing: "0.1em", color: "rgba(255,255,255,0.25)",
+              border: "1px solid rgba(255,255,255,0.06)", padding: "2px 6px",
+            }}>
+              learning
             </span>
-          ))}
+          </div>
+          <p style={{
+            fontSize: 12, color: "rgba(255,255,255,0.22)",
+            lineHeight: 2.2, letterSpacing: "0.03em",
+          }}>
+            Rust · Docker · AWS · GraphQL · WebSockets · Redis
+          </p>
         </div>
       </div>
 
-      {/* Right — card */}
-      <div
-        ref={cardRef}
-        className="slide-right"
-        style={{
-          background: "var(--bg2)",
-          border: "1px solid var(--border)",
-          borderRadius: 8,
-          padding: 36,
+      {/* ── Right ── */}
+      <div style={{
+        padding: "80px 52px",
+        display: "flex", flexDirection: "column", justifyContent: "center",
+        ...anim("0.12s"),
+      }}>
+        {/* Portrait — clean rectangle, no card */}
+        <div style={{
           position: "relative",
           overflow: "hidden",
-        }}
-      >
-        {/* flat top accent bar */}
-        <div style={{
-          position: "absolute", top: 0, left: 0, right: 0, height: 3,
-          background: "var(--green)",
-        }} />
-
-        {/* avatar — flat color */}
-        <div style={{
-          width: 72, height: 72, borderRadius: "50%",
-          background: "#2D5A42",
-          marginBottom: 18,
-          display: "flex", alignItems: "center", justifyContent: "center",
-          fontSize: 28,
-          border: "2px solid var(--green)",
+          marginBottom: 28,
         }}>
-          ✦
+          <Image
+            src="/portrait.webp"
+            alt="Portrait"
+            width={400} height={500}
+            style={{
+              width: "100%", height: "auto",
+              display: "block",
+              filter: "grayscale(100%)",
+            }}
+            onError={e => {
+              const el = e.target as HTMLImageElement;
+              el.style.display = "none";
+              if (el.parentElement) {
+                el.parentElement.innerHTML =
+                  `<div style="width:100%;aspect-ratio:4/5;background:#0d0d0d;display:flex;align-items:center;justify-content:center;color:#333;font-size:10px;letter-spacing:0.1em;text-transform:uppercase">portrait.webp</div>`;
+              }
+            }}
+          />
+          {/* Subtle vignette on portrait */}
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.4) 100%)",
+            pointerEvents: "none",
+          }}/>
         </div>
 
-        <div style={{ fontFamily: "var(--font-dm-serif), serif", fontSize: 20, marginBottom: 4 }}>
-          Ryo
-        </div>
-        <div style={{
-          fontSize: 12, color: "var(--green)",
-          letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 24,
-        }}>
-          Product Designer &amp; Developer
-        </div>
-
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-          {cardStats.map(s => (
-            <StatCard key={s.label} stat={s} active={counting} />
+        {/* Minimal stats — just type */}
+        <div style={{ display: "flex", gap: 36 }}>
+          {[
+            { num: "2+ yrs",   label: "IT grad"   },
+            { num: "Batanes", label: "PHL" },
+          ].map(s => (
+            <div key={s.label}>
+              <div style={{
+                fontFamily: "var(--font-dm-serif), serif",
+                fontSize: 22, color: "#fff", lineHeight: 1,
+              }}>
+                {s.num}
+              </div>
+              <div style={{
+                fontSize: 9, color: "var(--muted)",
+                letterSpacing: "0.1em", textTransform: "uppercase", marginTop: 6,
+              }}>
+                {s.label}
+              </div>
+            </div>
           ))}
         </div>
       </div>

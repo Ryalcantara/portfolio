@@ -3,31 +3,25 @@ import { useEffect, useRef } from "react";
 
 const projects = [
   {
-    tag: "Branding",
+    tag:   "Branding",
     title: "Nova Identity System",
-    desc: "Full brand identity for a SaaS startup — logo, color system, and motion guidelines.",
-    year: "2025",
-    bg: "#1C2820",
+    desc:  "Full brand identity for a SaaS startup — logo, color system, and motion guidelines.",
+    year:  "2025",
     label: "Brand Identity",
-    accent: "var(--green)",
   },
   {
-    tag: "UI / UX",
+    tag:   "UI / UX",
     title: "Fintech Dashboard",
-    desc: "End-to-end product design for a financial analytics platform with real-time data.",
-    year: "2025",
-    bg: "#191E2E",
+    desc:  "End-to-end product design for a financial analytics platform with real-time data.",
+    year:  "2025",
     label: "Product Design",
-    accent: "var(--blue)",
   },
   {
-    tag: "Development",
+    tag:   "Development",
     title: "E-commerce Rebuild",
-    desc: "Redesigned and rebuilt a high-volume store, increasing conversion rate by 34%.",
-    year: "2024",
-    bg: "#261C1B",
+    desc:  "Redesigned and rebuilt a high-volume store, increasing conversion rate by 34%.",
+    year:  "2024",
     label: "Web Development",
-    accent: "var(--coral)",
   },
 ];
 
@@ -49,7 +43,7 @@ export default function Portfolio() {
       el.style.transform = "translateY(30px)";
       el.style.transition = `opacity 0.6s cubic-bezier(0.22,1,0.36,1) ${i * 0.12}s,
                              transform 0.6s cubic-bezier(0.22,1,0.36,1) ${i * 0.12}s,
-                             border-color 0.2s, box-shadow 0.2s`;
+                             border-color 0.25s, box-shadow 0.25s`;
       observer.observe(el);
     });
 
@@ -60,7 +54,7 @@ export default function Portfolio() {
     <section
       id="portfolio"
       ref={ref}
-      style={{ padding: "80px 52px", borderTop: "1px solid var(--border)" }}
+      style={{ padding: "80px 52px", borderTop: "1px solid var(--border)", minHeight: "100vh" }}
     >
       {/* Header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 48 }}>
@@ -69,7 +63,7 @@ export default function Portfolio() {
           <h2 style={{
             fontFamily: "var(--font-dm-serif), serif",
             fontSize: "clamp(34px, 4vw, 52px)",
-            fontWeight: 400, letterSpacing: "-0.01em",
+            fontWeight: 400, letterSpacing: "-0.01em", color: "#fff",
           }}>
             Recent Projects
           </h2>
@@ -81,7 +75,7 @@ export default function Portfolio() {
             display: "flex", alignItems: "center", gap: 6,
             letterSpacing: "0.06em", transition: "color 0.2s, gap 0.2s",
           }}
-          onMouseEnter={e => { e.currentTarget.style.color = "var(--green)"; e.currentTarget.style.gap = "10px"; }}
+          onMouseEnter={e => { e.currentTarget.style.color = "#fff"; e.currentTarget.style.gap = "10px"; }}
           onMouseLeave={e => { e.currentTarget.style.color = "var(--muted)"; e.currentTarget.style.gap = "6px"; }}
         >
           See all
@@ -100,47 +94,43 @@ export default function Portfolio() {
             style={{
               background: "var(--bg2)",
               border: "1px solid var(--border)",
-              borderRadius: 8,
+              borderRadius: 6,
               overflow: "hidden",
               cursor: "pointer",
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.borderColor = p.accent === "var(--green)"
-                ? "rgba(140,201,160,0.35)"
-                : p.accent === "var(--blue)"
-                ? "rgba(107,159,212,0.35)"
-                : "rgba(212,88,74,0.35)";
-              e.currentTarget.style.transform = "translateY(-6px)";
-              e.currentTarget.style.boxShadow = "0 16px 40px rgba(0,0,0,0.3)";
+              e.currentTarget.style.borderColor = "rgba(255,255,255,0.25)";
+              e.currentTarget.style.transform   = "translateY(-6px)";
+              e.currentTarget.style.boxShadow   = "0 20px 40px rgba(0,0,0,0.5)";
             }}
             onMouseLeave={e => {
               e.currentTarget.style.borderColor = "var(--border)";
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "none";
+              e.currentTarget.style.transform   = "translateY(0)";
+              e.currentTarget.style.boxShadow   = "none";
             }}
           >
-            {/* Image / color block — flat */}
+            {/* Image / color block */}
             <div style={{
               width: "100%", aspectRatio: "16/10",
-              background: p.bg,
+              background: "#111",
               display: "flex", alignItems: "center", justifyContent: "center",
               fontSize: 11, letterSpacing: "0.1em",
               textTransform: "uppercase", color: "var(--muted)",
-              borderBottom: `2px solid ${p.accent}`,
+              borderBottom: "1px solid var(--border)",
               position: "relative",
               overflow: "hidden",
             }}>
-              {/* Flat corner accent */}
+              {/* Corner brackets */}
               <div style={{
                 position: "absolute", top: 12, left: 12,
                 width: 8, height: 8,
-                border: `1.5px solid ${p.accent}`,
+                border: "1.5px solid rgba(255,255,255,0.2)",
                 borderRight: "none", borderBottom: "none",
               }} />
               <div style={{
                 position: "absolute", bottom: 12, right: 12,
                 width: 8, height: 8,
-                border: `1.5px solid ${p.accent}`,
+                border: "1.5px solid rgba(255,255,255,0.2)",
                 borderLeft: "none", borderTop: "none",
               }} />
               {p.label}
@@ -150,14 +140,14 @@ export default function Portfolio() {
             <div style={{ padding: "20px 22px" }}>
               <div style={{
                 fontSize: 10, letterSpacing: "0.16em",
-                textTransform: "uppercase", color: p.accent,
+                textTransform: "uppercase", color: "var(--muted)",
                 marginBottom: 8,
               }}>
                 {p.tag}
               </div>
               <div style={{
                 fontFamily: "var(--font-dm-serif), serif",
-                fontSize: 20, fontWeight: 400, marginBottom: 8,
+                fontSize: 20, fontWeight: 400, marginBottom: 8, color: "#fff",
               }}>
                 {p.title}
               </div>
@@ -177,13 +167,21 @@ export default function Portfolio() {
               </span>
               <div style={{
                 width: 28, height: 28, borderRadius: "50%",
-                border: `1px solid ${p.accent}`,
+                border: "1px solid rgba(255,255,255,0.15)",
                 display: "flex", alignItems: "center", justifyContent: "center",
-                color: p.accent,
-                transition: "background 0.2s",
+                color: "rgba(255,255,255,0.5)",
+                transition: "border-color 0.2s, color 0.2s, background 0.2s",
               }}
-                onMouseEnter={e => (e.currentTarget.style.background = "rgba(140,201,160,0.08)")}
-                onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+                onMouseEnter={e => {
+                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.4)";
+                  e.currentTarget.style.color = "#fff";
+                  e.currentTarget.style.background = "rgba(255,255,255,0.06)";
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)";
+                  e.currentTarget.style.color = "rgba(255,255,255,0.5)";
+                  e.currentTarget.style.background = "transparent";
+                }}
               >
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                   <path d="M1 11L11 1M11 1H4M11 1V8" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>

@@ -1,5 +1,8 @@
 "use client";
 import { useRef, useEffect, FormEvent } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function Contact() {
   const ref = useRef<HTMLElement>(null);
@@ -27,16 +30,12 @@ export default function Contact() {
   const handleSubmit = (e: FormEvent) => e.preventDefault();
 
   const inputStyle: React.CSSProperties = {
-    background: "var(--bg2)",
-    border: "1px solid var(--border)",
-    borderRadius: 4,
-    padding: "13px 16px",
-    color: "var(--text)",
-    fontFamily: "var(--font-inter), sans-serif",
+    background: "#0f0f0f",
+    border: "1px solid rgba(255,255,255,0.1)",
+    color: "#fff",
     fontSize: 13,
-    width: "100%",
+    borderRadius: 3,
     outline: "none",
-    transition: "border-color 0.2s",
   };
 
   return (
@@ -50,6 +49,7 @@ export default function Contact() {
         gridTemplateColumns: "1fr 1fr",
         gap: 80,
         alignItems: "center",
+        minHeight: "100vh",
       }}
     >
       {/* Left */}
@@ -59,63 +59,49 @@ export default function Contact() {
           fontFamily: "var(--font-dm-serif), serif",
           fontSize: "clamp(36px, 5vw, 64px)",
           fontWeight: 400, lineHeight: 1.05,
-          letterSpacing: "-0.01em",
+          letterSpacing: "-0.01em", color: "#fff",
         }}>
           Let&apos;s build<br />
           something<br />
-          <em style={{ fontStyle: "italic", color: "var(--green)" }}>remarkable.</em>
+          <em style={{ fontStyle: "italic", color: "rgba(255,255,255,0.45)" }}>remarkable.</em>
         </h2>
       </div>
 
       {/* Right — form */}
-      <form className="observe" onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-          <input
-            type="text"
-            placeholder="Your name"
-            style={inputStyle}
-            onFocus={e => (e.target.style.borderColor = "rgba(140,201,160,0.5)")}
-            onBlur={e => (e.target.style.borderColor = "var(--border)")}
-          />
-          <input
-            type="email"
-            placeholder="Email address"
-            style={inputStyle}
-            onFocus={e => (e.target.style.borderColor = "rgba(140,201,160,0.5)")}
-            onBlur={e => (e.target.style.borderColor = "var(--border)")}
-          />
+      <form className="observe" onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+          <Input type="text"  placeholder="Your name"     style={inputStyle} />
+          <Input type="email" placeholder="Email address" style={inputStyle} />
         </div>
-        <input
-          type="text"
-          placeholder="Subject"
-          style={inputStyle}
-          onFocus={e => (e.target.style.borderColor = "rgba(140,201,160,0.5)")}
-          onBlur={e => (e.target.style.borderColor = "var(--border)")}
+        <Input    type="text" placeholder="Subject"                   style={inputStyle} />
+        <Textarea             placeholder="Tell me about your project…" rows={5}
+          style={{ ...inputStyle, resize: "none" }}
         />
-        <textarea
-          placeholder="Tell me about your project…"
-          style={{ ...inputStyle, height: 110, resize: "none" }}
-          onFocus={e => (e.target.style.borderColor = "rgba(140,201,160,0.5)")}
-          onBlur={e => (e.target.style.borderColor = "var(--border)")}
-        />
-        <button
+        <Button
           type="submit"
           style={{
-            background: "var(--green)",
-            color: "#191A2C",
-            fontWeight: 600, fontSize: 13,
+            background: "#fff",
+            color: "#000",
+            fontWeight: 600,
+            fontSize: 13,
             letterSpacing: "0.06em",
             padding: "13px 28px",
-            border: "none", borderRadius: 4,
+            height: "auto",
+            borderRadius: 3,
+            transition: "opacity 0.2s, transform 0.2s",
             cursor: "pointer",
-            transition: "opacity 0.2s",
-            fontFamily: "var(--font-inter), sans-serif",
           }}
-          onMouseEnter={e => (e.currentTarget.style.opacity = "0.85")}
-          onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
+          onMouseEnter={e => {
+            e.currentTarget.style.opacity   = "0.88";
+            e.currentTarget.style.transform = "translateY(-1px)";
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.opacity   = "1";
+            e.currentTarget.style.transform = "translateY(0)";
+          }}
         >
           Send Message
-        </button>
+        </Button>
       </form>
     </section>
   );
