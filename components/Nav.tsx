@@ -13,7 +13,6 @@ export default function Nav() {
   const obsRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
-    // rAF so the DOM siblings are mounted before we query them
     const rafId = requestAnimationFrame(() => {
       const hero       = document.getElementById("hero");
       const scrollRoot = document.getElementById("scroll-root");
@@ -40,6 +39,18 @@ export default function Nav() {
   };
 
   return (
+    <>
+    <a
+      href="/resume.pdf"
+      download
+      className="resume-strip"
+      aria-label="Download Resume"
+    >
+      <span>RÉSUMÉ</span>
+      <svg width="8" height="8" viewBox="0 0 11 11" fill="none" style={{ flexShrink: 0 }}>
+        <path d="M5.5 1v7M2 5.5l3.5 3.5 3.5-3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    </a>
     <nav
       className="nav-enter"
       style={{
@@ -111,5 +122,6 @@ export default function Nav() {
         </svg>
       </a>
     </nav>
+    </>
   );
 }
